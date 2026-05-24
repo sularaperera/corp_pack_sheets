@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
+from pathlib import Path
 
 st.set_page_config(
     page_title="Warehouse Sheet Generator",
@@ -22,16 +23,33 @@ Upload the Mintsoft and DSD files to generate:
 # -----------------------------
 mintsoft_file = st.file_uploader(
     "Upload Mintsoft File",
-    type=["xlsx"]
+    type=["xlsx", "csv"]
 )
 
 dsd_file = st.file_uploader(
     "Upload DSD File",
-    type=["xlsx"]
+    type=["xlsx", "csv"]
 )
 
 # -----------------------------
-# Helper Function
+# Helper Function - Read Files
+# -----------------------------
+def read_file(uploaded_file):
+
+    file_extension = Path(uploaded_file.name).suffix.lower()
+
+    if file_extension == ".csv":
+        return pd.read_csv(uploaded_file)
+
+    elif file_extension == ".xlsx":
+        return pd.read_excel(uploaded_file)
+
+    else:
+        raise ValueError("Unsupported file type")
+
+
+# -----------------------------
+# Helper Function - Excel Export
 # -----------------------------
 def to_excel(df):
     output = BytesIO()
