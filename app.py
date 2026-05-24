@@ -140,10 +140,10 @@ if mintsoft_file and dsd_file:
         # -----------------------------
         # Milk Sheet
         # -----------------------------
-        milk_products_df = final_df[
+        milk_products_df = final_df [
             final_df["Product Name"]
             .astype(str)
-            .str.contains("milk", case=False, na=False)
+            .str.contains(r"milk|meadowfresh", case=False, na=False)
         ]
 
         milk_df = milk_products_df.pivot_table(
