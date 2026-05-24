@@ -117,8 +117,26 @@ if mintsoft_file and dsd_file:
         # Pick Sheet
         # -----------------------------
         pick_df = final_df.sort_values(
-            by=["Product Name", "Sequence"]
+            by=[
+                "Product Name",
+                "Courier Service",
+                "Sequence"
+                ]
         )
+
+        # Rearrange columns
+        pick_df = pick_df[
+            [
+                "Product SKU",
+                "Product Name",
+                "Product Qty",
+                "Order Number",
+                "FirstName",
+                "Address 1",
+                "Courier Service",
+                "Sequence"
+            ]
+        ]
 
         # -----------------------------
         # Label Sheet
