@@ -7,7 +7,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📦 Warehouse Sheet Generator for AKL Corporate Orders")
+st.title("📦 Warehouse Sheet Generator for Corporate Orders")
 
 st.markdown("""
 Upload the Mintsoft and DSD files to generate:
