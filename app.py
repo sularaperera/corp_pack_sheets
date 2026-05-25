@@ -43,14 +43,11 @@ def read_file(uploaded_file):
     if file_extension == ".csv":
         return pd.read_csv(uploaded_file)
 
-    elif file_extension == ".xlsx":
-        return pd.read_excel(uploaded_file, engine="openpyxl")
-    
-    elif file_extension == ".xls":
-        return pd.read_excel(uploaded_file, engine="xlrd")
+    elif file_extension in [".xlsx", ".xls"]:
+        return pd.read_excel(uploaded_file)
 
     else:
-        raise ValueError("Unsupported file type")
+        raise ValueError(f"Unsupported file type: {file_extension}")
 
 
 # -----------------------------
@@ -71,9 +68,9 @@ def to_excel(df):
 if mintsoft_file and dsd_file:
 
     try:
-        # Read files
-        mintsoft_df = pd.read_excel(mintsoft_file)
-        dsd_df = pd.read_excel(dsd_file)
+        # Read files using helper function
+        mintsoft_df = read_file(mintsoft_file)
+        dsd_df = read_file(dsd_file)
 
         # -----------------------------
         # Mintsoft cleanup
