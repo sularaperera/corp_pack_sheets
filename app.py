@@ -121,7 +121,7 @@ if mintsoft_file and dsd_file:
             dsd_df,
             left_on="Address 1 Clean",
             right_on="Address Line One Clean",
-            how="left"
+            how="inner"
         )
 
         # Remove helper columns
