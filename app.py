@@ -128,7 +128,6 @@ if mintsoft_file and dsd_file:
         final_df = final_df.drop(
             columns=[
                 "Address 1 Clean",
-                "Address Line One",
                 "Address Line One Clean"
             ]
         )
