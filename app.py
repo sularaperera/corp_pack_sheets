@@ -26,6 +26,7 @@ mintsoft_file = st.file_uploader(
     type=["xlsx", "csv"]
 )
 
+
 dsd_file = st.file_uploader(
     "Upload DSD File",
     type=["xlsx", "csv"]
@@ -102,6 +103,7 @@ if mintsoft_file and dsd_file:
         # -----------------------------
         mintsoft_df["Address 1 Clean"] = (
             mintsoft_df["Address 1"]
+            .fillna("")
             .astype(str)
             .str.strip()
             .str.lower()
@@ -109,6 +111,7 @@ if mintsoft_file and dsd_file:
 
         dsd_df["Address Line One Clean"] = (
             dsd_df["Address Line One"]
+            .fillna("")
             .astype(str)
             .str.strip()
             .str.lower()
@@ -118,14 +121,11 @@ if mintsoft_file and dsd_file:
         # Merge
         # -----------------------------
         final_df = mintsoft_df.merge(
-            dsd_df,
+            dsd_df[["Address Line One Clean", "Sequence"]],
             left_on="Address 1 Clean",
             right_on="Address Line One Clean",
             how="inner"
-        )
-
-        # Remove helper columns
-        final_df = final_df.drop(
+        ).drop(
             columns=[
                 "Address 1 Clean",
                 "Address Line One Clean"
@@ -140,7 +140,7 @@ if mintsoft_file and dsd_file:
                 "Product Name",
                 "Courier Service",
                 "Sequence"
-                ]
+            ]
         )
 
         # Rearrange columns
